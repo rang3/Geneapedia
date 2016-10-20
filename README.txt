@@ -1,11 +1,14 @@
 Geneapedia readme
 
-VIRTUALENV:
-This folder has a virtualenv that we should all use
-in order to keep everything consistent.
-To run, type
-    . venv/bin/activate
+I made a sample hello.py from the quickstart. This is from the 
+quickstart guide on the flask website.
 
-you can type deactivate to stop using venv
+You should install virtual env and run it on here
 
+to run the applet,
+$ export FLASK_APP=hello.py
+$ flask run
 
+to run the debug mode,
+$ export FLASK_DEBUG=1
+$ flask run

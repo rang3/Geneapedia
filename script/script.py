@@ -33,7 +33,8 @@ def main(argv):
     print(password)
     print(wikifile)
         
-
-
+    file_stream = open(wikifile, 'r')
+    for line in file_stream.readlines():
+        print line
 if __name__ == "__main__":
     main(sys.argv[1:])

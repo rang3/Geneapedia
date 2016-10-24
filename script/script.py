@@ -21,9 +21,16 @@ def parseFile(username, wikifile):
                 if "<title>" in line:
                     title = re.search('(?<=<title>)(.*)(?=</title>)' , line)
                 if "{{infobox person" in line:
+                    spouse = ""
+                    children = ""
                     while "}}" not in line:
-                        if "spouse=" in line:
-                            re.search('?<=spouse=',line)
+                        if "spouse" in line:
+                            spouse = re.search('?<=spouse(\s*)=(s*)(\[{2})?(\w+)',line)
+                        if "children" in line:
+                            children = re.search('',line)
+                        filestream.next()
+                    print spouse.group(0)
+                            
                 line = filestream.next()
             print title.group(0)
 

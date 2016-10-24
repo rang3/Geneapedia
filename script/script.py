@@ -2,11 +2,31 @@
 #Wikipedia xml dumps and store it in our mySQL db.
 
 import sys, getopt, getpass
-#import MySQLdb as mdb
+from bs4 import BeautifulSoup
+import MySQLdb as mdb
+from lxml import etree
+import re
 
 def getPassword():
     password = getpass.getpass('enter password: ')
     return password
+
+def parseFile(username, wikifile):
+    filestream = open(wikifile, 'r')
+    for line in filestream:
+        if "<page>" in line:
+            print "new page"
+            title = ""
+            while "</page>" not in line:
+                if "<title>" in line:
+                    title = re.search('(?<=<title>)(.*)(?=</title>)' , line)
+                if "{{infobox person" in line:
+                    while "}}" not in line:
+                        if "spouse=" in line:
+                            re.search('?<=spouse=',line)
+                line = filestream.next()
+            print title.group(0)
+
 
 def main(argv):
     inputfile = ''
@@ -20,8 +40,12 @@ def main(argv):
     password = ''
     wikifile = ''
     for opt, arg in opts:
+        if opts == []:
+            print('script.py -u <username> -p -i <input>')
+            sys.exit()
         if opt == '-h':
             print('script.py -u <username> -p -i <input>')
+            sys.exit()
         if opt == '-u':
             username = arg
         if opt == '-p':
@@ -29,12 +53,7 @@ def main(argv):
         if opt == '-i':
             wikifile = arg
             
-    print(username)
-    print(password)
-    print(wikifile)
-        
-    file_stream = open(wikifile, 'r')
-    for line in file_stream.readlines():
-        print line
+    parseFile(username, wikifile)    #taglist is a wikisoup
 if __name__ == "__main__":
     main(sys.argv[1:])
+

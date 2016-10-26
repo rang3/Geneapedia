@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 import MySQLdb as mdb
 from lxml import etree
 import re
+#regex_search = re.search('regex', string)
+#regex_search.group(0)
 
 def getPassword():
     password = getpass.getpass('enter password: ')
@@ -15,25 +17,71 @@ def parseFile(username, wikifile):
     filestream = open(wikifile, 'r')
     for line in filestream:
         if "<page>" in line:
-            print "new page"
-            title = ""
-            while "</page>" not in line:
-                if "<title>" in line:
-                    title = re.search('(?<=<title>)(.*)(?=</title>)' , line)
-                if "{{infobox person" in line:
-                    spouse = ""
-                    children = ""
-                    while "}}" not in line:
-                        if "spouse" in line:
-                            spouse = re.search('?<=spouse(\s*)=(s*)(\[{2})?(\w+)',line)
-                        if "children" in line:
-                            children = re.search('',line)
-                        filestream.next()
-                    print spouse.group(0)
+            #print "new page"
+            title = "no name"
+            PID = "no ID"
+            while "</page>" not in line:    #for each page 
+                if "<title>" in line:       #find the title
+                    title = re.search('(?<=<title>)(.*)(?=</title>)' , line) 
+                if "<id>" in line:
+                    PID = re.search('(?<=<id>)(.*)(?=</id>)',line)
+                if "{{infobox person" in line:#if there is an infobox person, then this is a person
+                    spouse = "N/A"         
+                    children = "N/A"
+                    birth_date = "N/A"
+                    death_date = "N/A"
+                    nationality = "N/A"
+                    alma_mater = "N/A"
+                    #did not implement popularity score yet!
+                    #wikipedia urls are not in the dump
+                    while "}}" not in line:     #while we are not at the end of the infobox
+                        if "spouse" in line:    #if there is a spouse, get the spouse with regex
+                            spouse = process_spouse(line)
+                        if "children" in line:  #if there are children, get the children with regex
+                            children = process_children(line)
+                        if "birth_date" in line:
+                            birth_date = process_bday(line)
+                        if "death_date" in line:
+                            death_date = process_dday(line)
+                        if "nationality" in line:
+                            nationality = process_nat(line)
+                        if "alma_mater" in line:
+                            alma_mater = process_alma(line)
+
+                        line = filestream.next()
+                    #print the info here
+                    #this will be where the info gets added to the database
+                    #we can include other attributes like
+                    #residence, birth place, 
+                    print title.group(0)
+                    print PID.group(0)
+                    print birth_date
+                    print death_date
+                    print spouse
+                    print children
+                    print nationality
+                    print alma_mater
+                    print "\n\n\n"
                             
                 line = filestream.next()
-            print title.group(0)
 
+def process_spouse(line):     #todo: implement this to strip strings and return a tuple of all 
+    return line           # everything in a good format
+
+def process_children(line):
+    return line
+
+def process_bday(line):
+    return line
+
+def process_dday(line):
+    return line
+
+def process_nat(line):
+    return line
+
+def process_alma(line):
+    return line
 
 def main(argv):
     inputfile = ''

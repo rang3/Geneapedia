@@ -9,6 +9,8 @@ import re
 #regex_search = re.search('regex', string)
 #regex_search.group(0)
 
+
+
 def getPassword():
     password = getpass.getpass('enter password: ')
     return password

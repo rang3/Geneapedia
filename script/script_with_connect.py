@@ -22,14 +22,13 @@ cursor = ''     #cursor object for the db object. don't touch!
 ###############################################################
 ##################EXPECTED RELATIONAL MODEL TABLES#############
 ###############################################################
-#Person(PID, name, birth_date, death_date, nationality, popularityScore)
+#Person(PID, name, birth_date, death_date, nationality, alma_mater, popularity_score)
 #       --- -----
-#Spouse(name, name, date)
+#Spouse(name1, name2, date)
 #       ----  ----
 #Child(parent_name, child_name)
 #      -----------  ----------
 #
-#Alma_Mater(name, university, date)
 
 #harris's comment
 def getPassword():

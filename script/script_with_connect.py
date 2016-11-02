@@ -84,7 +84,7 @@ def parseFile(wikifile):
                     print nationality
                     print alma_mater
                     print "\n\n\n"
-                    cursor.execute('INSERT INTO Person(PID, name, birth_date, death_date, nationality, popularity_score) VALUES(%d, %s, %s, %s, %s, %d);' % (int(PID.group(0)), title.group(0), birth_date, death_date, nationality, 0))  
+                    cursor.execute("INSERT INTO Person(PID, name, birth_date, death_date, nationality, popularity_score) VALUES(%d, \'%s\', \'%s\', \'%s\', \'%s\', %d);" % (int(PID.group(0)), title.group(0), birth_date, death_date, nationality, 0))  
                     #popularity score set to 0 for now
                     for person in spouse:
                         cursor.execute('INSERT INTO Spouse(name1, name2, date) VALUES(%s, %s, %s);' % (title.group(0), person, "N/A"))
@@ -136,8 +136,11 @@ def main(argv):
         if opt == '-i':
             wikifile = arg
 
+    global dbname 
     dbname = raw_input("enter db name: ") 
-    db = MySQLdb.connect("localhost", username, password, dbname)
+    global db 
+    db = MySQLdb.connect("127.0.0.1", username, password, dbname)
+    global cursor 
     cursor = db.cursor()
 
     parseFile(wikifile)

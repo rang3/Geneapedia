@@ -3,7 +3,7 @@
 
 import sys, getopt, getpass
 from bs4 import BeautifulSoup
-import MySQLdb as mdb
+import MySQLdb
 from lxml import etree
 import re
 #regex_search = re.search('regex', string)
@@ -22,13 +22,13 @@ cursor = ''     #cursor object for the db object. don't touch!
 ###############################################################
 ##################EXPECTED RELATIONAL MODEL TABLES#############
 ###############################################################
-#Person(PID, name, birth_date, death_date, nationality, alma_mater, popularity_score)
+#Person(PID, name, birth_date, death_date, nationality, popularity_score)
 #       --- -----
 #Spouse(name1, name2, date)
 #       ----  ----
 #Child(parent_name, child_name)
 #      -----------  ----------
-#
+#Alma_mater(name, university)
 
 #harris's comment
 def getPassword():
@@ -84,14 +84,23 @@ def parseFile(wikifile):
                     print nationality
                     print alma_mater
                     print "\n\n\n"
+                    cursor.execute('INSERT INTO Person(PID, name, birth_date, death_date, nationality, popularity_score) VALUES(%d, %s, %s, %s, %s, %d);' % (int(PID.group(0)), title.group(0), birth_date, death_date, nationality, 0))  
+                    #popularity score set to 0 for now
+                    for person in spouse:
+                        cursor.execute('INSERT INTO Spouse(name1, name2, date) VALUES(%s, %s, %s);' % (title.group(0), person, "N/A"))
+                    #date for marriage is set to "N/A" for now
+                    for child in children:
+                        cursor.execute('INSERT INTO Child(parent_name, child_name) VALUES(%s, %s);' % (title.group(0), child))
+                    for uni in alma_mater:
+                        cursor.execute('INSERT INTO Alma_mater(name, university) VALUES(%s, %s);' % (title.group(0), uni))  
                             
                 line = filestream.next()
 
 def process_spouse(line):     #todo: implement this to strip strings and return a tuple of all 
-    return line           # everything in a good format
+    return [line]           # everything in a good format
 
 def process_children(line):
-    return line
+    return [line]
 
 def process_bday(line):
     return line
@@ -103,7 +112,7 @@ def process_nat(line):
     return line
 
 def process_alma(line):
-    return line
+    return [line]
 
 def main(argv):
     inputfile = ''

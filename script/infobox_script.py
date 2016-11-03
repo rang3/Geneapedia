@@ -57,8 +57,8 @@ def parseFile(wikifile):
                         right_bracket += line.count('}')
                         line = filestream.next().rstrip('\n').rstrip('\r')
 
-                    print title
-                    print PID
+                    #print title
+                    #print PID
                     print infobox
                             
                 line = filestream.next().rstrip('\n').rstrip('\r')

@@ -30,7 +30,6 @@ cursor = ''     #cursor object for the db object. don't touch!
 #      -----------  ----------
 #Alma_mater(name, university)
 
-#harris's comment
 def getPassword():
     password = getpass.getpass('enter password: ')
     return password
@@ -84,15 +83,20 @@ def parseFile(wikifile):
                     print nationality
                     print alma_mater
                     print "\n\n\n"
-                    cursor.execute("INSERT INTO Person(PID, name, birth_date, death_date, nationality, popularity_score) VALUES(%d, \'%s\', \'%s\', \'%s\', \'%s\', %d);" % (int(PID.group(0)), title.group(0), birth_date, death_date, nationality, 0))  
+                    print "INSERT INTO Person(PID, name, birth_date, death_date, nationality, popularity_score) VALUES(%d, \"%s\", \"%s\", \"%s\", \"%s\", %d);" % (int(PID.group(0)), title.group(0), birth_date, death_date, nationality, 0)
+                    global cursor
+                    cursor.execute("INSERT INTO Person(PID, name, birth_date, death_date, nationality, popularity_score) VALUES(%d, \"%s\", \"%s\", \"%s\", \"%s\", %d);" % (int(PID.group(0)), title.group(0), birth_date, death_date, nationality, 0))  
                     #popularity score set to 0 for now
-                    for person in spouse:
-                        cursor.execute('INSERT INTO Spouse(name1, name2, date) VALUES(%s, %s, %s);' % (title.group(0), person, "N/A"))
-                    #date for marriage is set to "N/A" for now
-                    for child in children:
-                        cursor.execute('INSERT INTO Child(parent_name, child_name) VALUES(%s, %s);' % (title.group(0), child))
-                    for uni in alma_mater:
-                        cursor.execute('INSERT INTO Alma_mater(name, university) VALUES(%s, %s);' % (title.group(0), uni))  
+                    if spouse != 'N/A':
+                        for person in spouse:
+                            cursor.execute('INSERT INTO Spouse(name1, name2, date) VALUES(\"%s\", \"%s\", \"%s\");' % (title.group(0), person, "N/A"))
+                        #date for marriage is set to "N/A" for now
+                    if children != 'N/A':
+                        for child in children:
+                            cursor.execute('INSERT INTO Child(parent_name, child_name) VALUES(\"%s\", \"%s\");' % (title.group(0), child))
+                    if alma_mater != 'N/A':
+                        for uni in alma_mater:
+                            cursor.execute('INSERT INTO Alma_mater(name, university) VALUES(\"%s\", \"%s\");' % (title.group(0), uni))  
                             
                 line = filestream.next()
 
@@ -144,6 +148,9 @@ def main(argv):
     cursor = db.cursor()
 
     parseFile(wikifile)
+
+    db.commit()     #commit changes to db
+    db.close()      #close the connection
 
 if __name__ == "__main__":
     main(sys.argv[1:])

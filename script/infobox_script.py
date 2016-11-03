@@ -47,39 +47,21 @@ def parseFile(wikifile):
                 if "<id>" in line:
                     PID = re.search('(?<=<id>)(.*)(?=</id>)',line).group(0)
                 if "{{infobox person" in line:#if there is an infobox person, then this is a person
-                    infobox = re.search('{{infobox person(.*)', line).group(0);
+                    infobox = re.search('{{infobox person(.*)', line).group(0).rstrip('\n').rstrip('\r');
                     left_bracket = infobox.count('{')
                     right_bracket = infobox.count('}')
-                    line = filestream.next()
+                    line = filestream.next().rstrip('\n').rstrip('\r')
                     while left_bracket != right_bracket:
                         infobox += line
                         left_bracket += line.count('{')
                         right_bracket += line.count('}')
-                        line = filestream.next()
+                        line = filestream.next().rstrip('\n').rstrip('\r')
 
                     print title
                     print PID
                     print infobox
                             
-                line = filestream.next()
-
-def process_spouse(line):     #todo: implement this to strip strings and return a tuple of all 
-    return [line]           # everything in a good format
-
-def process_children(line):
-    return [line]
-
-def process_bday(line):
-    return line
-
-def process_dday(line):
-    return line
-
-def process_nat(line):
-    return line
-
-def process_alma(line):
-    return [line]
+                line = filestream.next().rstrip('\n').rstrip('\r')
 
 def main(argv):
     inputfile = ''

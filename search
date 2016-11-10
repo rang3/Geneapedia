@@ -1,0 +1,18 @@
+USE `Wiki`;
+DROP procedure IF EXISTS `Wiki`,`search`;
+
+DELIMITER $$
+USE `Wiki`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `search`(
+    IN pname(45),
+)
+BEGIN
+    SELECT p.name, p1.name, c.name
+    FROM Person p
+    WHERE pname = p.name
+    INNER JOIN Parent ON Parent.name = p.name
+    INNER JOIN Child on Child.name = p.name
+END$$
+
+DELIMITER ;
+;

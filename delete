@@ -1,0 +1,15 @@
+USE `Wiki`;
+DROP procedure IF EXISTS `Wiki`.`deleteUser`;
+
+DELIMITER $$
+USE `Wiki`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deletetUser`(
+    IN pname(45)s
+)
+BEGIN
+  delete from Person where (name = pname);
+
+END$$
+
+DELIMITER ;
+;

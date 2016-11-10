@@ -1,0 +1,30 @@
+USE `Wiki`;
+DROP procedure IF EXISTS `Wiki`.`insertUser`;
+
+DELIMITER $$
+USE `Wiki`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUser`(
+    IN pname(45),
+    IN pbirth(1000),
+    IN pdeath,
+    IN pnationality
+)
+BEGIN
+    insert into Person(
+          name,
+          birth,
+          death,
+          nationality
+    )
+    values
+    (
+        pname,
+        pbirth,
+        pdeath,
+        pnationality
+        NOW()
+    );
+END$$
+
+DELIMITER ;
+;

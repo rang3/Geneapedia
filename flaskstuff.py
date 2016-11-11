@@ -1,5 +1,5 @@
 from flask import Flask
-import MySQLdb
+from flask_mysqldb import MySQL
 app = Flask(__name__)
 
 # MySQL configurations
@@ -7,7 +7,7 @@ app.config['MYSQL_DATABASE_USER'] = ''
 app.config['MYSQL_DATABASE_PASSWORD'] = ''
 app.config['MYSQL_DATABASE_DB'] = ''
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-mysql.init_app(app)
+mysql = MySQL(app)
 
 
 @app.route('/')
@@ -23,7 +23,7 @@ def insertion():
 
             # All Good, let's call MySQL
 
-        conn = MySQLdb.connect()
+        conn = MySQL.connect()
         cursor = conn.cursor()
 
         cursor.execute('insertUser', _name, _birth, _death, _nationality) # insert
@@ -36,7 +36,7 @@ def deletion():
 
             # All Good, let's call MySQL
 
-        conn = MySQLdb.connect()
+        conn = MySQL.connect()
         cursor = conn.cursor()
 
         cursor.callproc('deleteUser', (_name))
@@ -49,7 +49,7 @@ def search():
 
             # All Good, let's call MySQL
 
-        conn = MySQLdb.connect()
+        conn = MySQL.connect()
         cursor = conn.cursor()
 
         cursor.execute('search', (_name))

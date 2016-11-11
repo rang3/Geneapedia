@@ -7,11 +7,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `search`(
     IN pname(45),
 )
 BEGIN
-    SELECT p.name, p1.name, c.name
-    FROM Person p
-    WHERE pname = p.name
-    INNER JOIN Parent ON Parent.name = p.name
-    INNER JOIN Child on Child.name = p.name
+    SELECT Person.name, Child.child_name
+    FROM Person
+    INNER JOIN Child
+    ON
+    Person.name=Child.parent_name
 END$$
 
 DELIMITER ;

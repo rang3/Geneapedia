@@ -1,3 +1,5 @@
+from flask import Flask
+import MySQLdb
 app = Flask(__name__)
 
 # MySQL configurations
@@ -21,8 +23,8 @@ def insertion():
 
             # All Good, let's call MySQL
 
-            conn = mysql.connect()
-            cursor = conn.cursor()
+        conn = MySQLdb.connect()
+        cursor = conn.cursor()
 
         cursor.execute('insertUser', _name, _birth, _death, _nationality) # insert
 
@@ -34,8 +36,8 @@ def deletion():
 
             # All Good, let's call MySQL
 
-            conn = mysql.connect()
-            cursor = conn.cursor()
+        conn = MySQLdb.connect()
+        cursor = conn.cursor()
 
         cursor.callproc('deleteUser', (_name))
 
@@ -47,10 +49,10 @@ def search():
 
             # All Good, let's call MySQL
 
-            conn = mysql.connect()
-            cursor = conn.cursor()
+        conn = MySQLdb.connect()
+        cursor = conn.cursor()
 
-            cursor.execute('search', (_name))
+        cursor.execute('search', (_name))
 
         cursor.close()
         conn.close()

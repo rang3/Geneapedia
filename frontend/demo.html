@@ -12,7 +12,7 @@
 <body>
 
 <div class="container">
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -48,7 +48,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="search">Name</label>
         <div class="col-sm-10">
-         <input type="search" class="form-control" id="Search" placeholder="Enter Name or Association">
+         <input type="search" class="form-control" id="Search" name="search" placeholder="Enter Name or Association">
         </div>
     </div>
     <div class="form-group"> 
@@ -60,29 +60,29 @@
   </div>
   <div id="ins" class="tab-pane fade">
   <h3>Insert</h3>
-  <form method="POST" role="form" class="form-horizontal">
+  <form action = "insert" method="POST" role="form" class="form-horizontal">
     <div class="form-group">
       <label class="control-label col-sm-2" for="Name">Name</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="Name" placeholder="e.x. Steve Jobs">
+        <input type="text" class="form-control" id="Name" name="name" placeholder="e.x. Steve Jobs">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="DateOfBirth">Date of Birth</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="DOB" placeholder="YYYY/MM/DD">
+        <input type="text" class="form-control" id="DOB" name="birth" placeholder="YYYY/MM/DD">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="DateOfDeath">Date of Death</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="DateOfDeath" placeholder="YYYY/MM/DD">
+        <input type="text" class="form-control" id="DateOfDeath" name="death" placeholder="YYYY/MM/DD">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="Nationality">Nationality</label>
+      <label class="control-label col-sm-2" for="Nationality">Alma Mater</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="Nationality" placeholder="e.x. United States of America">
+        <input type="text" class="form-control" id="Nationality" name="almamater" placeholder="Trump University">
       </div>
     </div>
     <div class="form-group">
@@ -112,11 +112,11 @@
   </div>
   <div id="del" class="tab-pane fade">
     <h3>Delete</h3>
-    <form method="POST" role="form" class="form-horizontal">
+    <form action="delete" method="POST" role="form" class="form-horizontal">
     <div class="form-group">
       <label class="control-label col-sm-2" for="search">Name</label>
         <div class="col-sm-10">
-         <input type="search" class="form-control" id="Search" placeholder="Enter Name or Association">
+         <input type="search" class="form-control" id="Search" name="name" placeholder="Enter Name or Association">
         </div>
     </div>
     <div class="form-group"> 
@@ -127,7 +127,18 @@
   </form>
   </div>
 </div>
-{{ result }}
+{% if spouse is not defined %}
+<div class="panel panel-default">
+  <div class="panel-body">Spouses</div>
+  <div class="panel-footer">{{spouse|safe}}</div>
+</div>
+{% endif %}
+{% if child is not defined %}
+<div class="panel panel-default">
+  <div class="panel-body">Children</div>
+  <div class="panel-footer">{{child|safe}}</div>
+</div>
+{% endif %}
 <img src="{{ url_for('static', filename='Steve_jobs.png') }}"  class="img-responsive " alt="Family Tree">
 </body>
 </html>

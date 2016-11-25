@@ -1,5 +1,5 @@
-USE `Wiki`;
-DROP procedure IF EXISTS `Wiki`,`search`;
+USE `final`;
+DROP procedure IF EXISTS `final`,`search`;
 
 DELIMITER $$
 USE `Wiki`$$

@@ -1,0 +1,29 @@
+#The regex for birth_date
+
+#matching birth_date=
+#error: cannot look ahead of variable length string
+(?<=(\|(\s)*(birth_date)\s*=\s*))
+
+text:
+
+|birth_date={{birth date|1830|10|24}}  
+
+| birth_date   = {{birth date and age|df=yes|1962|8|27}}&lt;ref&gt;{{cite web|url=http://www.tottiegoldsmith.com.au/about_tottie_goldsmith.html|title=About tottie goldsmith|publisher=tottiegoldsmith.com.au|accessdate=26 January 2012}} &lt;/ref&gt;  
+
+|birth_date={{birth date|1906|6|4}}
+
+| birth_date = {{birth date|1923|07|29}}  
+
+|birth_date = {{birth year and age|df=yes|1930}}  
+
+| birth_date = 1742 
+
+|birth_date = c. 1969
+
+|birth_date = {{birth date|1883|8|26}}  
+
+death dates
+
+|death_date = May 2, 1808 (aged 65 or 66)
+
+| death_date = {{death date and age|1953|9|17|1883|8|26}} 

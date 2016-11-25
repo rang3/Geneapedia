@@ -1,0 +1,5 @@
+This is a list of assumptions I made when creating the database
+Everybody has one spouse
+Everybody has a different name
+
+If someone has the more than one wife, I have not accounted for that

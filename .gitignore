@@ -1,3 +1,6 @@
 venv/
 hello.pyc
 script/wikifile.xml
+frontend/mysketch.pde
+frontend/processing.js
+frontend/mysketch2.pde

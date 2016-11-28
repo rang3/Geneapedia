@@ -21,6 +21,17 @@ def main():
 def demo():
         return render_template('frontend/demo.html')
 
+@app.rote('/searchChild')
+def searchChild():
+	thePerson = ""
+	n = request.args.get('name')
+	conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
+	cursor = conn.cursor()
+	cursor.execute("SELECT name FROM Person WHERE name=\'%s\';" n)
+	for name in cursor:
+		thePerson += str(name[0])
+	return thePerson
+
 @app.route('/aboutus')
 def aboutus():
 	return render_template('frontend/aboutus.html')

@@ -96,56 +96,24 @@ var cy = cytoscape({
     padding: 10
   }
 }); // cy init
-  
-cy.on('tap', 'node', function(){
-  var nodes = this;
-  var tapped = nodes;
-  var food = [];
-  
-  nodes.addClass('eater');
-  
-  for(;;){
-    var connectedEdges = nodes.connectedEdges(function(){
-      return !this.target().anySame( nodes );
-    });
-    
-    var connectedNodes = connectedEdges.targets();
-    
-    Array.prototype.push.apply( food, connectedNodes );
-    
-    nodes = connectedNodes;
-    
-    if( nodes.empty() ){ break; }
-  }
-        
-  var delay = 0;
-  var duration = 500;
-  for( var i = food.length - 1; i >= 0; i-- ){ (function(){
-    var thisFood = food[i];
-    var eater = thisFood.connectedEdges(function(){
-      return this.target().same(thisFood);
-    }).source();
-            
-    thisFood.delay( delay, function(){
-      eater.addClass('eating');
-    } ).animate({
-      position: eater.position(),
-      css: {
-        'width': 10,
-        'height': 10,
-        'border-width': 0,
-        'opacity': 0
-      }
-    }, {
-      duration: duration,
-      complete: function(){
-        thisFood.remove();
+  cy.nodes().forEach(function(n){
+    var g = n.data('id');
+
+    n.qtip({
+      content: g,
+      position: {
+        my: 'top left',
+        at: 'right center'
+      },
+      style: {
+        classes: 'qtip-bootstrap',
+        tip: {
+          width: 16,
+          height: 8
+        } 
       }
     });
-    
-    delay += duration;
-  })(); } // for
-  
-}); // on tap
+  });
+
 
 }); // on dom ready

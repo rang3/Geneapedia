@@ -63,57 +63,32 @@ def lookup():
         return popularityOf(thisguy)
 
 def parentOf(thisguy):
-    conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
-    cursor = conn.cursor()
-    cursor.execute("SELECT Child_final.parent_name FROM Child_final WHERE child_name=\'%s\';" %(thisguy))
+	conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
+	cursor = conn.cursor()
+	cursor.execute("SELECT Child.parent_name FROM Child WHERE child_name=\'%s\';" %(thisguy))
     parents = ",".join(cursor)
     return jsonify(result=parents)
     
 def childOf(thisguy):
-    conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
-    cursor = conn.cursor()
-    cursor.execute("SELECT Child_final.child_name FROM Child_final WHERE parent_name=\'%s\';" %(thisguy))
+	conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
+	cursor = conn.cursor()
+	cursor.execute("SELECT Child.child_name FROM Child WHERE parent_name=\'%s\';" %(thisguy))
     children = ",".join(cursor)
     return jsonify(result=children)
 
 def spouseOf(thisguy):
-    conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
-    cursor = conn.cursor()
+	conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
+	cursor = conn.cursor()
     spouselist = []
-    cursor.execute("SELECT Spouse_final.name2 FROM Spouse_final WHERE name1=\'%s\';" %(thisguy))
+	cursor.execute("SELECT Spouse.name2 FROM Spouse_final WHERE name1=\'%s\';" %(thisguy))
     for spouse in cursor:
         spouselist.append(spouse)
-    cursor.execute("SELECT Spouse_final.name1 FROM Spouse_final WHERE name2=\'%s\';" %(thisguy))
+	cursor.execute("SELECT Spouse.name1 FROM Spouse_final WHERE name2=\'%s\';" %(thisguy))
     for spouse in cursor:
         spouselist.append(spouse)
-    spouselist = ",".join(spouselist)
-    return jsonify(result=spouselist)
-
-def almaOf(thisguy):
-    conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
-    cursor = conn.cursor()
-    cursor.execute("SELECT Alma_mater_final.university FROM Alma_mater_final WHERE name=\'%s\';" %(thisguy))
-    schoollist = ",".join(cursor)
-    return jsonify(result=schoollist)
-    
-def infoOf(thisguy):
-    conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Person_final WHERE name=\'%s\';" %(thisguy))
-    attributes = []
-    for PID, name, birth_date, death_date, popularity_score in cursor:
-        attributes=[PID, name, birth_date, death_date, popularity_score]
-    return jsonify(PID=attributes[0], name=attributes[1],birth_date=attributes[2],death_date=attributes[3])
-
-def popularityOf(thisguy):
-    conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
-    cursor = conn.cursor()
-    cursor.execute("SELECT Popularity2.Pscore FROM Popularity2, Person_final WHERE Person_final.PID=Popularity2.PID AND Person_final.name=\'%s\';" %(thisguy))
-    theScore = 1
-    for score in cursor:
-        theScore = str(score[0])
-    return jsonify(result=theScore)
-
+    children = ",".join(cursor)
+    return jsonify(result=children)
+	
 @app.route('/search', methods=['POST'])
 def select():
 	conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")

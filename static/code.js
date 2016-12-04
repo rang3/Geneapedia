@@ -115,7 +115,10 @@ var cy = cytoscape({
     });
   });
 
-  $('#SearchForm').submit(function() {
+  $("#SearchForm").submit(function() {
+    if ( $( "#SearchForm" ).val() === "Steve Jobs" ) {
+    console.log('Steve Jobs Validated');
+    }
     $.when(
       //get parent
       $.getJSON($SCRIPT_ROOT + '/buildTree', {

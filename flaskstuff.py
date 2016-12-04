@@ -45,7 +45,7 @@ def faq():
 def test():
 	return render_template('frontend/test.html')
 
-@app.route('/something', methods=['POST'])
+@app.route('/buildTree', methods=['POST'])
 def lookup():
     thisguy = request.args.get('thisguy', '', type=str)
     relation = request.args.get('relation', '', type=str)

@@ -115,5 +115,31 @@ var cy = cytoscape({
     });
   });
 
+  $('#SearchForm').submit(function() {
+    $.when(
+      //get parent
+      $.getJSON($SCRIPT_ROOT + '/buildTree', {
+      thisguy: $('#SearchForm').val(),
+      relation: "parent"
+      }),
+
+      $.getJSON($SCRIPT_ROOT + '/buildTree', {
+      thisguy: $('#SearchForm').val(),
+      relation: "child"
+      }),
+
+      $.getJSON($SCRIPT_ROOT + '/buildTree', {
+      thisguy: $('#SearchForm').val(),
+      relation: "spouse"
+      })
+
+    ).then(function(parent, child, spouse) {
+      console.log(parent);
+      console.log(child);
+      console.log(spouse);
+    });
+      
+  });
+
 
 }); // on dom ready

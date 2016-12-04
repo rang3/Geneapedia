@@ -11,20 +11,9 @@
   <script type=text/javascript>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   </script>
+  <script type=text/javascript src="{{ url_for('static', filename='code.js') }}"></script>
 </head>
 <body>
-<script type=text/javascript>
-  $(function() {
-    $('#childSearchForm').submit(function() {
-      $.getJSON($SCRIPT_ROOT + '/searchChild', {
-        name: $('#childSearchForm').val()
-      }, function(data) {
-        $("#result").text(data.result);
-      });
-      return false;
-    });
-  });
-</script>
 <div class="container">
   <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">

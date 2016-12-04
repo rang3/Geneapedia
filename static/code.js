@@ -115,24 +115,25 @@ var cy = cytoscape({
     });
   });
 
-  $("#SearchForm").submit(function() {
-    if ( $( "#SearchForm" ).val() === "Steve Jobs" ) {
+ $("#SearchForm").submit(function() {
+    if ( $( "#SearchFormInput" ).val() === "Steve Jobs" ) {
     console.log('Steve Jobs Validated');
+    return;
     }
     $.when(
       //get parent
       $.getJSON($SCRIPT_ROOT + '/buildTree', {
-      thisguy: $('#SearchForm').val(),
+      thisguy: $('#SearchFormInput').val(),
       relation: "parent"
       }),
 
       $.getJSON($SCRIPT_ROOT + '/buildTree', {
-      thisguy: $('#SearchForm').val(),
+      thisguy: $('#SearchFormInput').val(),
       relation: "child"
       }),
 
       $.getJSON($SCRIPT_ROOT + '/buildTree', {
-      thisguy: $('#SearchForm').val(),
+      thisguy: $('#SearchFormInput').val(),
       relation: "spouse"
       })
 

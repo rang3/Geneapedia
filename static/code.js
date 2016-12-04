@@ -118,7 +118,6 @@ var cy = cytoscape({
  $("#SearchForm").submit(function() {
     if ( $( "#SearchFormInput" ).val() === "Steve Jobs" ) {
     console.log('Steve Jobs Validated');
-    return;
     }
     $.when(
       //get parent

@@ -12,6 +12,13 @@
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   </script>
   <script type=text/javascript src="{{ url_for('static', filename='code.js') }}"></script>
+  <!-- Cytoscape stuff -->
+  <!-- <link href="style.css" rel="stylesheet" /> -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-qtip/2.2.5/cytoscape-qtip.js"></script>
 </head>
 <body>
 <div class="container">
@@ -150,7 +157,7 @@
   <div class="panel-footer">{{child|safe}}</div>
 </div>
 {% endif %}
-<img src="Steve_jobs.png"  class="img-responsive " alt="Family Tree">
+<img src="{{ url_for('static', filename='Steve_jobs.png') }}"  class="img-responsive " alt="Family Tree">
 <!-- Modal Content (popup) -->
 <div id="addChild" class="modal fade" role="dialog">
   <div class="modal-dialog">

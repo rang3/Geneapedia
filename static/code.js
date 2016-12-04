@@ -1,7 +1,7 @@
 $(function(){ // on dom ready
 
 // photos from flickr with creative commons license
-  
+console.log("Page Loaded!");
 var cy = cytoscape({
   container: document.getElementById('cy'),
   
@@ -115,7 +115,7 @@ var cy = cytoscape({
     });
   });
 
- $("#SearchForm").submit(function() {
+  $("#SearchForm").submit(function() {
     if ( $( "#SearchFormInput" ).val() === "Steve Jobs" ) {
     console.log('Steve Jobs Validated');
     }

@@ -4,28 +4,29 @@ $(function(){ // on dom ready
     if ( $( "#SearchFormInput" ).val() === "Steve Jobs" ) {
     console.log('Steve Jobs Validated');
     }
-    $.when(
+
       //get parent
       $.getJSON($SCRIPT_ROOT + '/buildTree', {
       thisguy: $('#SearchFormInput').val(),
       relation: "parent"
-      }),
+      }, function(data) {
+	console.log(data.result);
+	
+	});
 
       $.getJSON($SCRIPT_ROOT + '/buildTree', {
       thisguy: $('#SearchFormInput').val(),
       relation: "child"
-      }),
+      }, function(data) {
+	console.log(data.result);
+	});
 
       $.getJSON($SCRIPT_ROOT + '/buildTree', {
       thisguy: $('#SearchFormInput').val(),
       relation: "spouse"
-      })
-
-    ).then(function(parent, child, spouse) {
-      console.log(parent);
-      console.log(child);
-      console.log(spouse);
-    });
+      }, function(data) {
+	console.log(data.result);
+	});
       
   });
 

@@ -45,7 +45,7 @@ def faq():
 def test():
 	return render_template('frontend/test.html')
 
-@app.route('/buildTree', methods=['POST'])
+@app.route('/buildTree', methods=['GET'])
 def lookup():
     thisguy = request.args.get('thisguy', '', type=str)
     relation = request.args.get('relation', '', type=str)
@@ -65,54 +65,62 @@ def lookup():
 def parentOf(thisguy):
     conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
     cursor = conn.cursor()
-    cursor.execute("SELECT Child_final.parent_name FROM Child_final WHERE child_name=\'%s\';" %(thisguy))
-    parents = ",".join(cursor)
+    cursor.execute("SELECT count(*)  FROM Child_final2 WHERE child_name=\'%s\';" %(thisguy))
+    length = cursor.fetchone()[0]
+    cursor.execute("SELECT Child_final2.parent_name FROM Child_final2 WHERE child_name=\'%s\';" %(thisguy))
+    parents = []
+    for i in range(length):
+        parents.append(cursor.fetchone()[0])
+    parents = ",".join(parents)
+    print(parents)
     return jsonify(result=parents)
     
 def childOf(thisguy):
     conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
     cursor = conn.cursor()
-    cursor.execute("SELECT Child_final.child_name FROM Child_final WHERE parent_name=\'%s\';" %(thisguy))
-    children = ",".join(cursor)
+    cursor.execute("SELECT count(*) FROM Child_final2 WHERE parent_name=\'%s\';" %(thisguy))
+    length = cursor.fetchone()[0]
+    cursor.execute("SELECT Child_final2.child_name FROM Child_final2 WHERE parent_name=\'%s\';" %(thisguy))
+    children = []
+    for i in range(length):
+        children.append(cursor.fetchone()[0])
+    children = ",".join(children)
+    print(children)
     return jsonify(result=children)
 
 def spouseOf(thisguy):
     conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
     cursor = conn.cursor()
+    cursor.execute("SELECT count(*) FROM Spouse_final2 WHERE name2=\'%s\';" %(thisguy))
+    length = cursor.fetchone()[0]
+    cursor.execute("SELECT Spouse_final2.name1 FROM Spouse_final2 WHERE name2=\'%s\';" %(thisguy))
     spouselist = []
-    cursor.execute("SELECT Spouse_final.name2 FROM Spouse_final WHERE name1=\'%s\';" %(thisguy))
-    for spouse in cursor:
-        spouselist.append(spouse)
-    cursor.execute("SELECT Spouse_final.name1 FROM Spouse_final WHERE name2=\'%s\';" %(thisguy))
-    for spouse in cursor:
-        spouselist.append(spouse)
+    for i in range(length):
+        spouselist.append(cursor.fetchone()[0])
     spouselist = ",".join(spouselist)
+    print(spouselist)
     return jsonify(result=spouselist)
 
 def almaOf(thisguy):
     conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
     cursor = conn.cursor()
-    cursor.execute("SELECT Alma_mater_final.university FROM Alma_mater_final WHERE name=\'%s\';" %(thisguy))
-    schoollist = ",".join(cursor)
+    cursor.execute("SELECT count(*) FROM Alma_mater_final2 WHERE name=\'%s\';" %(thisguy))
+    length = cursor.fetchone()[0]
+    cursor.execute("SELECT Alma_mater_final2.university FROM Alma_mater_final2 WHERE name=\'%s\';" %(thisguy))
+    schoollist=[]
+    for i in range(length):
+        schoollist.append(cursor.fetchone()[0])
+    schoollist = ",".join(schoollist)
     return jsonify(result=schoollist)
     
 def infoOf(thisguy):
     conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Person_final WHERE name=\'%s\';" %(thisguy))
+    cursor.execute("SELECT * FROM Person_final2 WHERE name=\'%s\';" %(thisguy))
     attributes = []
     for PID, name, birth_date, death_date, popularity_score in cursor:
         attributes=[PID, name, birth_date, death_date, popularity_score]
     return jsonify(PID=attributes[0], name=attributes[1],birth_date=attributes[2],death_date=attributes[3])
-
-def popularityOf(thisguy):
-    conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
-    cursor = conn.cursor()
-    cursor.execute("SELECT Popularity2.Pscore FROM Popularity2, Person_final WHERE Person_final.PID=Popularity2.PID AND Person_final.name=\'%s\';" %(thisguy))
-    theScore = 1
-    for score in cursor:
-        theScore = str(score[0])
-    return jsonify(result=theScore)
 
 @app.route('/search', methods=['POST'])
 def select():

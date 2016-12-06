@@ -29,11 +29,11 @@ var cy = cytoscape({
       })
     .selector('#Steve')
       .css({
-        'background-image': 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Steve_Jobs_Headshot_2010-CROP.jpg'
+        'background-image': 'https://upload.wikimedia.org/wikipedia/commons/1/19/Bill_Gates_June_2015.jpg'
       })
     .selector('#Laurene')
       .css({
-        'background-image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Laurene_Powell_Jobs.jpg/220px-Laurene_Powell_Jobs.jpg'
+        'background-image': 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Melinda_Gates_-_World_Economic_Forum_Annual_Meeting_2011.jpg'
       })
     .selector('#Chrisann')
       .css({
@@ -49,20 +49,18 @@ var cy = cytoscape({
       })
   .selector('#Lisa')
       .css({
-        'background-image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Lisa_Brennan-Jobs.jpg/220px-Lisa_Brennan-Jobs.jpg'
+        'background-image': ''
       }),
   
   elements: {
     nodes: [
-      { data: { id: 'Steve', name: 'Steve Jobs' , birth: 'February 24, 1955', death: 'October 5, 2011', alma: 'Reed College', popularity: '300'} },
-      { data: { id: 'Laurene', name: 'Laurene Powell', birth: 'November 6, 1963', death: 'N/A', alma: 'Stanford University', popularity: '100' } },
-      { data: { id: 'Chrisann', name: 'Steve Jobs' , birth: 'September 29, 1954', death: 'N/A', alma: ' ', popularity: '50'} },
-      { data: { id: 'Reed', name: 'Reed Jobs' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50'} },
-      { data: { id: 'Eve', name: 'Eve Jobs' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50' } },
-      { data: { id: 'Lisa', name: 'Lisa Brennan-Jobs' , birth: 'May 17, 1978', death: 'N/A', alma: 'Harvard University', popularity: '150' } },
-      { data: { id: 'Erin', name: 'Erin Jobs' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50'} },
-      { data: { id: 'Paul', name: 'Paul Jobs' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50' } },
-      { data: { id: 'Clara', name: 'Clara Jobs' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50' } },
+      { data: { id: 'Steve', name: 'Bill Gates' , birth: 'October 28, 1955', death: 'N/A', alma: 'Harvard College', popularity: '300'} },
+      { data: { id: 'Laurene', name: 'Melinda Gates', birth: 'August 5, 1964', death: 'N/A', alma: 'Duke University', popularity: '100' } },
+      { data: { id: 'Reed', name: '' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50'} },
+      { data: { id: 'Eve', name: '' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50' } },
+      { data: { id: 'Lisa', name: '' , birth: 'May 17, 1978', death: 'N/A', alma: 'Harvard University', popularity: '150' } },
+      { data: { id: 'Paul', name: 'William H. Gates Sr.' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50' } },
+      { data: { id: 'Clara', name: 'Mary Maxwell Gates' , birth: 'N/A', death: 'N/A', alma: 'N/A', popularity: '50' } },
     ],
     edges: [
       { data: { source: 'Steve', target: 'Reed' , faveColor: '#ffaaaa'} },

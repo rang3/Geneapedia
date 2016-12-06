@@ -1,8 +1,17 @@
 $(function(){ // on dom ready
 
-  $("#SearchForm").submit(function() {
+  $("#BuildTreeButton").click(function() {
     if ( $( "#SearchFormInput" ).val() === "Steve Jobs" ) {
     console.log('Steve Jobs Validated');
+    return;
+    }
+    if ( $( "#SearchFormInput" ).val() === "Bill Gates" ) {
+    console.log('Bill Gates Validated');
+    return;
+    }
+    if ( $( "#SearchFormInput" ).val() === "Elon Musk" ) {
+    console.log('Elon Musk Validated');
+    return;
     }
 
       //get parent

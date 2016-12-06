@@ -93,19 +93,19 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="Children">Children</label>
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addChild">Add Children</button>
+        <input type="text" class="form-control" id="Children" name="children" placeholder="ChildA, ChildB, ChildC...">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="Parents">Parents</label>
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addParent">Add Parent</button>
+        <input type="text" class="form-control" id="Parent" name="parent" placeholder="ParentA, ParentB...">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="Spouses">Spouses</label>
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addSpouse">Add Spouses</button>
+        <input type="text" class="form-control" id="spouse" name="spouse" placeholder="SpouseA, SpouseB...">
       </div>
     </div>
     <div class="form-group"> 
@@ -151,105 +151,5 @@
   <div class="panel-footer">{{child|safe}}</div>
 </div>
 {% endif %}
-<img src="{{ url_for('static', filename='Steve_jobs.png') }}"  class="img-responsive " alt="Family Tree">
-<!-- Modal Content (popup) -->
-<div id="addChild" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Search Children</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form" class="form-horizontal" id="childSearchForm">
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="childSearch">Name</label>
-              <div class="col-sm-10">
-               <input type="search" class="form-control" id="childSearch" name="childSearch" placeholder="Enter Name or Association">
-              </div>
-          </div>
-          <div class="form-group"> 
-            <div class="col-sm-offset-2 col-sm-10">
-              <input type="submit" class="btn btn-default" value="Search"/>
-            </div>
-          </div>
-        </form>
-      </div>
-      {% if childList is defined %}
-      <div class="well well-sm fixed-well">
-        <ul class="list-group checked-list-box">
-          <li class="list-group-item">Cras justo odio</li>
-          {{childList|safe}}
-        </ul>        
-      </div>
-      <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>  
-      {% endif %} 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="addParent" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Search Parent</h4>
-      </div>
-      <div class="modal-body">
-        <form action="search" method="POST" role="form" class="form-horizontal">
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="search">Name</label>
-              <div class="col-sm-10">
-               <input type="search" class="form-control" id="Search" name="search" placeholder="Enter Name or Association">
-              </div>
-          </div>
-        </form>
-      </div>
-      {% if person is defined %}
-      <div class="well well-sm fixed-well">
-        {{person|safe}}
-      </div>  
-      {% endif %} 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="addSpouse" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Search Spouse</h4>
-      </div>
-      <div class="modal-body">
-        <form action="search" method="POST" role="form" class="form-horizontal">
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="search">Name</label>
-              <div class="col-sm-10">
-               <input type="search" class="form-control" id="Search" name="search" placeholder="Enter Name or Association">
-              </div>
-          </div>
-        </form>
-      </div>
-      {% if person is defined %}
-      <div class="well well-sm fixed-well">
-        {{person|safe}}
-      </div>  
-      {% endif %} 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>

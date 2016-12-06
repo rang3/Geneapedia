@@ -45,6 +45,10 @@ def faq():
 def test():
 	return render_template('frontend/test.html')
 
+@app.route('/test2')
+def test():
+    return render_template('frontend/test2.html')
+
 @app.route('/buildTree', methods=['GET'])
 def lookup():
     thisguy = request.args.get('thisguy', '', type=str)
@@ -126,21 +130,21 @@ def infoOf(thisguy):
 def select():
 	conn = MySQLdb.connect("127.0.0.1", "root", "cs411fa2016", "final")
 	cursor = conn.cursor()
-	print "SELECT * FROM {SELECT Person.name, Spouse.name2 FROM Person INNER JOIN Spouse ON Person.name=Spouse.name1 ORDER BY Person.name} WHERE name=\'%s\';" %(request.form['search'])	
+	print "SELECT * FROM {SELECT Person_final2.name, Spouse_final2.name2 FROM Person_final2 INNER JOIN Spouse_final2 ON Person_final2.name=Spouse_final2.name1 ORDER BY Person_final2.name} WHERE name=\'%s\';" %(request.form['search'])	
 
-	cursor.execute("SELECT * FROM (SELECT Person.name, Spouse.name2 FROM Person INNER JOIN Spouse ON Person.name=Spouse.name1 ORDER BY Person.name) AS S WHERE name=\'%s\';" %(request.form['search']))
+	cursor.execute("SELECT * FROM (SELECT Person_final2.name, Spouse_final2.name2 FROM Person_final2 INNER JOIN Spouse_final2 ON Person_final2.name=Spouse_final2.name1 ORDER BY Person_final2.name) AS S WHERE name=\'%s\';" %(request.form['search']))
 	spouses = ""
 	children = ""
 	thePerson = ""
 	for (name, spouse) in cursor:
 		spouses += "<br/>" + spouse
 
-	cursor.execute("SELECT * FROM (SELECT Person.name, Child.child_name FROM Person INNER JOIN Child ON Person.name=Child.parent_name ORDER BY Person.name) AS C WHERE name=\'%s\';" %(request.form['search']))
+	cursor.execute("SELECT * FROM (SELECT Person_final2.name, Child_final2.child_name FROM Person_final2 INNER JOIN Child_final2 ON Person_final2.name=Child_final2.parent_name ORDER BY Person_final2.name) AS C WHERE name=\'%s\';" %(request.form['search']))
 	for (name, child) in cursor:
 		children += "<br/>" + child
 	print spouses
 	print children
-	cursor.execute("SELECT name FROM Person WHERE name=\'%s\';" %(request.form['search']))
+	cursor.execute("SELECT name FROM Person_final2 WHERE name=\'%s\';" %(request.form['search']))
 	for name in cursor:
 		thePerson += str(name[0])
 	return render_template('frontend/demo.html',person=thePerson, spouse=spouses, child=children)
@@ -151,7 +155,9 @@ def insertion():
         _birth = request.form['birth']
         _death = request.form['death']
         _alma = request.form['almamater']
-
+        _children = request.form['children']
+        _parent = request.form['parent']
+        _spouse = request.form['spouse']
 	
             # All Good, let's call MySQL
 
@@ -162,7 +168,24 @@ def insertion():
 		_birth='N/A'
 	if _death == "":
 		_death='N/A'
-        cursor.execute('INSERT INTO Person(PID, name,birth_date,death_date,popularity_score) VALUES(0,\'%s\', \'%s\', \'%s\', 0);' %(_name, _birth, _death))
+        cursor.execute('INSERT INTO Person_final2(PID, name,birth_date,death_date,popularity_score) VALUES(0,\'%s\', \'%s\', \'%s\', 50);' %(_name, _birth, _death))
+    if _child != "":
+        childlist = _child.strip().split(',');
+        for c in childlist:
+            if c != "":
+                cursor.execute('INSERT INTO Child_final2(child_name, parent_name) VALUES(\'%s\', \'%s\');' %(c, _name))
+    if _parent != "":
+        parentlist = _parent.strip().split(',');
+        for p in parentlist:
+            if p != "":
+                cursor.execute('INSERT INTO Child_final2(child_name, parent_name) VALUES(\'%s\', \'%s\');' %(_name, p))
+
+    if _spouse != "":
+        spouselist = _spouse.strip().split(',');
+        for s in spouselist:
+            if s != "":
+                cursor.execute('INSERT INTO Spouse_final2(name1, name2) VALUES(\'%s\', \'%s\');' %(_name, s))
+
 
 	conn.commit()
         cursor.close()
@@ -179,7 +202,7 @@ def deletion():
         cursor = conn.cursor()
 
 	print _name
-        cursor.execute('DELETE FROM Person WHERE name=\'%s\'' %(_name))
+        cursor.execute('DELETE FROM Person_final2 WHERE name=\'%s\'' %(_name))
 
 	conn.commit()
         cursor.close()

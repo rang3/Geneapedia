@@ -2,16 +2,12 @@ $(function(){ // on dom ready
 
   $("#BuildTreeButton").click(function() {
     if ( $( "#SearchFormInput" ).val() === "Steve Jobs" ) {
-    console.log('Steve Jobs Validated');
-    return;
+      $.post($SCRIPT_ROOT + '/test2');
+      return;
     }
     if ( $( "#SearchFormInput" ).val() === "Bill Gates" ) {
-    console.log('Bill Gates Validated');
-    return;
-    }
-    if ( $( "#SearchFormInput" ).val() === "Elon Musk" ) {
-    console.log('Elon Musk Validated');
-    return;
+    $.post($SCRIPT_ROOT + '/test');
+      return;
     }
 
       //get parent

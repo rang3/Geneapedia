@@ -65,14 +65,10 @@ var cy = cytoscape({
     edges: [
       { data: { source: 'Steve', target: 'Reed' , faveColor: '#ffaaaa'} },
       { data: { source: 'Steve', target: 'Eve' , faveColor: '#ffaaaa'} },
-      { data: { source: 'Steve', target: 'Reed' , faveColor: '#ffaaaa'} },
-      { data: { source: 'Steve', target: 'Eve' , faveColor: '#ffaaaa'} },
       { data: { source: 'Steve', target: 'Lisa' , faveColor: '#ffaaaa'} },
-      { data: { source: 'Steve', target: 'Erin' , faveColor: '#ffaaaa'} },
       { data: { source: 'Laurene', target: 'Reed' , faveColor: '#ffaaaa'} },
       { data: { source: 'Laurene', target: 'Lisa' , faveColor: '#ffaaaa'} },
-      { data: { source: 'Laurene', target: 'Eve' , faveColor: '#ffaaaa'} },
-      { data: { source: 'Chrisann', target: 'Erin' , faveColor: '#ffaaaa'} }
+      { data: { source: 'Laurene', target: 'Eve' , faveColor: '#ffaaaa'} }
     ]
   },
   
